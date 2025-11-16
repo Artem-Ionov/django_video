@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for video in videos %}
+        <p>{{video.name}}</p>
+    {% empty %}
+        <p>На сайте пока нет ни одного видео</p>
+    {% endfor %}
+{% endblock %}

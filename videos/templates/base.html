@@ -1,0 +1,20 @@
+<!--Базовый файл для всех шаблонов-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Мой видеосайт</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div class="navi">
+            <ul>
+                <li><a href="{% url 'display_list' %}">Все видео</a></li>
+                <li><a href="">Мои видео</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

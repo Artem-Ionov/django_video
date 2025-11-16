@@ -1,17 +1,15 @@
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure--)hig!-fe*0mk6+jw%^w8&qys1-#peehoo$=5w!&db^@&sz7nw"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+load_dotenv()   # Берём параметры из файла .env
+SECRET_KEY = os.environ.get("SECRET_KEY", "abc")
+DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 INSTALLED_APPS = [
@@ -54,10 +52,15 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
+# Используем PostgreSQL
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ["NAME"],
+        "USER": os.environ["USER"],
+        "PASSWORD": os.environ["PASSWORD"],
+        "HOST": os.environ["HOST"],
+        "PORT": "5432"
     }
 }
 
@@ -93,5 +96,31 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "static/"
 
+# Медиафайлы
+MEDIA_ROOT = BASE_DIR / "media"  # Папка сохранения для медиафайлов
+MEDIA_URL = "/media/"             # URL-префикс
+
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+'''
+# Настраиваем логирование
+if DEBUG:
+    LOGGING = {
+        "version": 1,
+        # Обработчики логов - определяют куда записывать логи
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "level": "DEBUG"
+            }
+        },    
+        # Логгеры - определяют что логировать
+        "loggers": {
+            "django.db.backends": {
+                "handlers": ["console"],
+                "level": "DEBUG"
+            }
+        }
+    }
+'''
