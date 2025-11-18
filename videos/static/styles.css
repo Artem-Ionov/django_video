@@ -1,0 +1,11 @@
+body{
+    display: flex;
+}
+
+.navi{
+    flex: 0 0 15%
+}
+
+.content{
+    flex: 0 0 85%;
+}

@@ -13,6 +13,7 @@ class Video(models.Model):
     class Meta:
         verbose_name = "Видео"
         verbose_name_plural = "Видео"
+        ordering = ["name"]
 
     def __str__(self) -> str:
         return self.name
@@ -26,7 +27,8 @@ QUALITY = {
 
 class VideoFile(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE, verbose_name="Видео")
-    file = models.FileField("Файл", upload_to="videos")     # Путь загрузки в MEDIA_ROOT
+    # Чтобы не заморачиваться с конкретными файлами при разработке, пока поставим blank
+    file = models.FileField("Файл", upload_to="videos", blank=True) # Путь загрузки в MEDIA_ROOT
     quality = models.CharField(max_length=1, choices=QUALITY)
 
     class Meta:
@@ -44,6 +46,9 @@ class Like(models.Model):
     class Meta:
         verbose_name = "Лайк"
         verbose_name_plural = "Лайки"
+        constraints = [
+            models.UniqueConstraint(fields = ["video", "user"], name = "unique_like")
+        ]
 
     def __str__(self) -> str:
         return f"Лайк {self.user.username} на {self.video.name}"

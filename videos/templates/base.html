@@ -5,12 +5,25 @@
     <head>
         <title>Мой видеосайт</title>
         <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
         <div class="navi">
             <ul>
                 <li><a href="{% url 'display_list' %}">Все видео</a></li>
-                <li><a href="">Мои видео</a></li>
+                {% if user.is_authenticated %}
+                <li>{{user.get_username}}</li>
+                <li><form method="post" action="{% url 'logout' %}">    <!--для которой необходим post-запрос-->
+                    {% csrf_token %}
+                    <input type="submit" value="Выйти"></form></li>
+                {% else %}  <!--В противном случае выводим кнопку "Войти"-->
+                <li><a href="{% url 'login' %}">Войти</a></li>
+                {% endif %}
+                {% if user.is_staff %}
+                <li><a href="{% url 'get_id' %}">ID опубликованных</a></li>
+                <li><a href="{% url 'get_statistics_groupby' %}">Статистика</a></li>
+                {% endif %}
             </ul>
         </div>
         <div class="content">

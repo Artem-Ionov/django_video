@@ -37,7 +37,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],   # Задаём папки для шаблонов
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -103,7 +103,10 @@ MEDIA_URL = "/media/"             # URL-префикс
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-'''
+# Перенаправление после входа
+LOGIN_REDIRECT_URL = "/videos/"
+
+
 # Настраиваем логирование
 if DEBUG:
     LOGGING = {
@@ -123,4 +126,3 @@ if DEBUG:
             }
         }
     }
-'''

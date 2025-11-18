@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <h1>Все видео</h1>
     {% for video in videos %}
-        <p>{{video.name}}</p>
+        <p><a href="{% url 'display_detail' video.pk %}">{{video.name}}</a></p>
     {% empty %}
         <p>На сайте пока нет ни одного видео</p>
     {% endfor %}

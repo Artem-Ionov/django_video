@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Информация о видео</h1>
+    <p>Название: {{video.name}}</p>
+    <p>Владелец: {{video.owner}}</p>
+    <p>Дата создания: {{video.created_at}}</p>
+    <p>Количество лайков: {{video.total_likes}}</p>
+    <p>Доступные файлы:</p>
+    <ul>
+    {% for videofile in video.videofile_set.all %}
+        <li>{{videofile}}</li>
+    {% endfor %}
+    </ul>
+    <p><a href="{% url 'like_video' video.pk %}">Лайкнуть</a></p>
+{% endblock %}
