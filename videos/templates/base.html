@@ -22,7 +22,8 @@
                 {% endif %}
                 {% if user.is_staff %}
                 <li><a href="{% url 'get_id' %}">ID опубликованных</a></li>
-                <li><a href="{% url 'get_statistics_groupby' %}">Статистика</a></li>
+                <li><a href="{% url 'get_statistics_groupby' %}">Статистика 1</a></li>
+                <li><a href="{% url 'get_statistics_subquery' %}">Статистика 2</a></li>
                 {% endif %}
             </ul>
         </div>

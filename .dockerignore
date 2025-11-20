@@ -1,0 +1,10 @@
+/.venv/
+/.git/
+/media/
+__pycache__/
+.env
+.gitignore
+Dockerfile
+docker-compose.yml
+.dockerignore
+*.docx

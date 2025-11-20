@@ -2,9 +2,17 @@
 
 {% block content %}
     <h1>Все видео</h1>
-    {% for video in videos %}
+    {% for video in page_obj %}
         <p><a href="{% url 'display_detail' video.pk %}">{{video.name}}</a></p>
     {% empty %}
         <p>На сайте пока нет ни одного видео</p>
     {% endfor %}
+
+    {% if page_obj.has_previous %}
+        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    {% if page_obj.has_next %}
+        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+    {% endif %}
 {% endblock %}

@@ -1,0 +1,35 @@
+# Версия формата docker-compose файла
+version: "3.7"
+
+# Определение сервисов (контейнеров)
+services:
+  django_app:
+    # Собрать образ из Dockerfile в текущей директории
+    build: .
+    # Проброс портов (хост:контейнер)
+    ports:
+      - "8000:8000"
+    # Монитрование томов (подключение файлов/папок) с хоста в контейнер
+    volumes:
+      - .:/django_video
+    # Порядок запуска контейнеров
+    depends_on:
+      - db_psql
+    environment:
+      - HOST=db_psql
+  db_psql:
+    # Используем готовый образ
+    image: postgres:15
+    # Имена переменных предопределены в стандартном образе. Берём их из .env
+    environment:
+      - POSTGRES_DB=${NAME}  
+      - POSTGRES_USER=${USER}
+      - POSTGRES_PASSWORD=${PASSWORD}
+    # Постоянное хранилище для данных базы (не теряются при перезапуске контейнера)
+    # Стандартный путь из официального образа
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# Создаём том
+volumes:
+  postgres_data:

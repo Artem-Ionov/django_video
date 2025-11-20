@@ -59,7 +59,7 @@ DATABASES = {
         "NAME": os.environ["NAME"],
         "USER": os.environ["USER"],
         "PASSWORD": os.environ["PASSWORD"],
-        "HOST": os.environ["HOST"],
+        "HOST": os.environ.get("HOST", "localhost"),    # для docker-compose
         "PORT": "5432"
     }
 }
@@ -106,7 +106,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Перенаправление после входа
 LOGIN_REDIRECT_URL = "/videos/"
 
-
+'''
 # Настраиваем логирование
 if DEBUG:
     LOGGING = {
@@ -126,3 +126,4 @@ if DEBUG:
             }
         }
     }
+    '''
